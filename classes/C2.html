@@ -9,7 +9,12 @@
     <div id="app">
         <button v-on:click="increase(2, $event)">Click me</button>
         <p>{{counter}}</p>
-        <p v-on:mousemove="updateCoordinates">Coordinate: {{x}} / {{y}}</p>
+        <p v-on:mousemove="updateCoordinates">
+            Coordinate: {{x}} / {{y}}
+            - <span v-on:mousemove="stopPropagation">DEAD SPOT</span>
+            - <span v-on:mousemove.stop.prevent="">DEAD SPOT without EVENT</span>
+        </p>
+        <input type="text" v-on:keyup.enter.space="alertMe">
     </div>
 </body>
 </html>
@@ -28,6 +33,12 @@
             updateCoordinates: function(event) {
                 this.x = event.clientX
                 this.y = event.clientY
+            },
+            stopPropagation: function (event) {
+                event.stopPropagation()
+            },
+            alertMe: function () {
+                alert('Hi')
             }
         }
     })
