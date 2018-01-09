@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C3</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="c3">
+    <!-- Two-way binding -->
+    <input type="text" v-model="name">
+    <p>{{name}}</p>
+
+    <!-- Method x Computed -->
+    <button v-on:click="value++">Increase</button>
+    <button v-on:click="value--">Decrease</button>
+    <button v-on:click="secondValue++">Increase two</button>
+
+    <p>Result: {{result}} | {{output()}} | {{resultWatch}}</p>
+    <p>Counter: {{value}} | {{secondValue}}</p>
+</div>
+
+</body>
+</html>
+
+<script>
+    new Vue({
+        el: '#c3',
+        data: {
+            name: 'Rita',
+            value: 0,
+            secondValue: 0,
+            resultWatch: ''
+        },
+        computed: {
+            result: function () {
+                console.log('Computed')
+                return this.value > 5 ? 'Greater than 5' : 'Less than 5'
+            }
+        },
+        watch: {
+            value: function (val) {
+                console.log('Watch')
+                this.resultWatch = val > 5 ? 'Greater than 5' : 'Less than 5'
+            }
+        },
+        methods: {
+            output: function () {
+                console.log('Method')
+                return this.value > 5 ? 'Greater than 5' : 'Less than 5'
+            }
+        }
+    })
+</script>
